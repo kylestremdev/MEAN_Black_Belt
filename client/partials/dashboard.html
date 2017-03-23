@@ -1,0 +1,37 @@
+<div id="header">
+  <ul>
+    <li>Bucket List</li>
+    <li class="active"><a href="#!/dashboard">Home</a></li>
+    <li><a href ng-click="logoutUser();">Logout</a></li>
+  </ul>
+</div>
+
+<h3>Welcome, {{user.name}}</h3>
+
+<ul ng-if="errors">
+  <li ng-repeat="error in errors" style='color:red'>{{error}}</li>
+</ul>
+
+
+<form>
+  <p>
+    <input type="text" ng-model="newEntry.title" placeholder="Title">
+    <input type="text" ng-model="newEntry.description" placeholder="Description">
+    <select size="{{min(users.length, 4)}}" ng-model="newEntry.tags" ng-init="newEntry.tags=[]"multiple>
+      <option ng-repeat="aUser in users" value="{{aUser._id}}" ng-if="aUser.name != user.name">{{aUser.name}}</option>
+    </select>
+    <button ng-click="createEntry(newEntry)">Add to List</button>
+  </p>
+</form>
+
+<div id="bucketList">
+  <h4>Before I die I want to...</h4>
+  <ul>
+    <li ng-repeat="entry in user.bucketList"><input type="checkbox" ng-model="entry.finished" ng-change="updateEntry(entry);">{{entry.tags[0].name}} | {{entry.title}} - {{entry.description}} - {{entry.createdAt}}</li>
+  </ul>
+</div>
+
+<div id="users">
+  <h4>List of other users (Click to view profile):</h4>
+  <p ng-repeat="user in users"><a href="#!/user/{{user._id}}">{{user.name}}</a></p>
+</div>

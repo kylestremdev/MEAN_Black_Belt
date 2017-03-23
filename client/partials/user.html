@@ -1,0 +1,23 @@
+<div id="header">
+  <ul>
+    <li>Bucket List</li>
+    <li class="active"><a href="#!/dashboard">Home</a></li>
+    <li><a href ng-click="logoutUser();">Logout</a></li>
+  </ul>
+</div>
+
+<h3>{{showUser.name}}'s Bucket List</h3>
+
+<div id="done">
+  <h4>Done:</h4>
+  <ul>
+    <li ng-repeat="entry in showUser.bucketList" ng-if="entry.finished"><input type="checkbox" ng-model="entry.finished" ng-change="updateEntry(entry);" ng-if="entry.show">{{entry.tags[0].name}} | {{entry.title}} - {{entry.description}} - {{entry.createdAt}}</li>
+  </ul>
+</div>
+
+<div id="pending">
+  <h4>Pending:</h4>
+  <ul>
+    <li ng-repeat="entry in showUser.bucketList" ng-if="!entry.finished"><input type="checkbox" ng-model="entry.finished" ng-change="updateEntry(entry);" ng-if="entry.show">{{entry.tags[0].name}} | {{entry.title}} - {{entry.description}} - {{entry.createdAt}}</li>
+  </ul>
+</div>
